@@ -1,31 +1,28 @@
 module.exports = Phrase;
 
-// Adds `reverse` to all string.
+// Adds `reverse` to all strings.
 String.prototype.reverse = function() {
+  // Array.from() to support emojis.
   return Array.from(this).reverse().join("");
 }
 
-// Defines a Phrase object
+// Defines a Phrase object.
 function Phrase(content) {
   this.content = content;
 
-  // Return content processed for palindrome testing.
-  this.processedContent = function processedContent() {
+  // Returns content processed for palindrome testing.
+  this.processedContent = function() {
     return this.letters().toLowerCase();
   }
 
-  // Return the letters in the content.
-  // For example:
-  //  new Phrase("Hello, world!").letters() === "Helloworld"
-  this.letters = function letters() {
-    const lettetsRegEx = /[a-z]/gi;
-    return (this.content.match(lettetsRegEx) || []).join("");
+  this.letters = function() {
+    return (this.content.match(/[a-z]/gi) || []).join("");
   }
 
-  // Returns true if the phrase is a palindrome, false otherwise.
-  this.palindrome = function palindrome() {
-    if (this.processedContent()) {
-      return this.processedContent() == this.processedContent().reverse();
+  // Returns true for a palindrome, false otherwise.
+  this.palindrome = function() {
+    if (this.letters()) {
+      return this.processedContent() === this.processedContent().reverse();
     } else {
       return false;
     }
